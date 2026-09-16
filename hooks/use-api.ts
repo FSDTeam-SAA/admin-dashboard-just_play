@@ -300,7 +300,7 @@ export const useCreatePitch = () => {
       toast.success("Pitch created successfully");
     },
     onError: (error) => {
-      toast.error("Failed to create pitch");
+      toast.error((error as any)?.response?.data?.message || "Failed to create pitch");
       console.error(error);
     },
   });
@@ -316,7 +316,7 @@ export const useUpdatePitch = () => {
       toast.success("Pitch updated successfully");
     },
     onError: (error) => {
-      toast.error("Failed to update pitch");
+      toast.error((error as any)?.response?.data?.message || "Failed to update pitch");
       console.error(error);
     },
   });
@@ -713,11 +713,11 @@ export const useSendNotification = () => {
       target?: "all" | "players" | "owners";
       title?: string;
     }) => emergencyApi.sendMassNotification(message, target, title),
-    onSuccess: () => {
-      toast.success("Notification sent successfully");
+    onSuccess: (response: any) => {
+      toast.success(response?.message || "Notification sent successfully");
     },
     onError: (error) => {
-      toast.error("Failed to send notification");
+      toast.error((error as any)?.response?.data?.message || "Failed to send notification");
       console.error(error);
     },
   });
