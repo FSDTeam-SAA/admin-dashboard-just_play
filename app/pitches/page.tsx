@@ -156,6 +156,11 @@ export default function PitchesPage() {
       toast.error("Please fill all required fields");
       return;
     }
+    const price = Number(formState.price);
+    if (!Number.isFinite(price) || price < 0) {
+      toast.error("Price must be a valid non-negative number");
+      return;
+    }
     const formData = new FormData();
     formData.append("name", formState.name);
     formData.append("cityId", formState.cityId);
@@ -470,6 +475,9 @@ export default function PitchesPage() {
               className="bg-slate-800 border-slate-700 text-white"
             />
             <Input
+              type="number"
+              min="0"
+              step="1"
               placeholder="Price"
               value={formState.price}
               onChange={(e) => setFormState({ ...formState, price: e.target.value })}
